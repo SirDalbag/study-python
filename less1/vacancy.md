@@ -1,4 +1,4 @@
-### 1
+### 1 
 3+ years of experience writing Python code
 Experience building and releasing production web applications
 Strong understanding of UI/UX
