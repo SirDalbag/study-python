@@ -51,25 +51,25 @@ class Roman:
         if isinstance(other, Roman):
             return self.num + other.num
         else:
-            raise TypeError("Невозможно сложить")
+            raise TypeError("Невозможно сложить!")
 
     def __sub__(self, other):
         if isinstance(other, Roman):
             return self.num - other.num
         else:
-            raise TypeError("Невозможно вычесть")
+            raise TypeError("Невозможно вычесть!")
 
     def __mul__(self, other):
         if isinstance(other, Roman):
             return self.num * other.num
         else:
-            raise TypeError("Невозможно умножить")
+            raise TypeError("Невозможно умножить!")
 
     def __truediv__(self, other):
         if isinstance(other, Roman):
             return int(self.num / other.num)
         else:
-            raise TypeError("Невозможно разделить")
+            raise TypeError("Невозможно разделить!")
 
     @staticmethod
     def roman_to_int(roman: str) -> int:
