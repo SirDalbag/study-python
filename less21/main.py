@@ -23,6 +23,7 @@ class Database:
             "SELECT id, name_candidate, group_candidate FROM candidates", ()
         )
 
+    @staticmethod
     def insert(name: str, group: str):
         return Database.query(
             "INSERT INTO candidates (name_candidate, group_candidate) VALUES (?,?)",
