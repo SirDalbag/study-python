@@ -147,3 +147,29 @@ class Solution:
             if nums[i] > nums[i - 1]:
                 dp[i] = dp[i - 1] + 1
         return max(dp)
+
+    @staticmethod
+    def plus_one(digits: list[int]) -> list[int]:
+        return list(map(int, str(int("".join(str(i) for i in digits)) + 1)))
+
+    @staticmethod
+    def single_number(nums: list[int]) -> int:
+        return [i for i in nums if nums.count(i) == 1][0]
+
+    @staticmethod
+    def missing_number(nums: list[int]) -> int:
+        for i in range(len(nums) + 1):
+            if i not in nums:
+                return i
+
+    @staticmethod
+    def is_power_of_three(self, n: int) -> bool:
+        if n < 1:
+            return False
+        elif n == 1:
+            return True
+        return self.isPowerOfThree(n / 3)
+
+    @staticmethod
+    def convert_temperature(celsius: float) -> list[float]:
+        return [celsius + 273.15, celsius * 1.80 + 32.00]
