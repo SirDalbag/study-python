@@ -173,3 +173,30 @@ class Solution:
     @staticmethod
     def convert_temperature(celsius: float) -> list[float]:
         return [celsius + 273.15, celsius * 1.80 + 32.00]
+
+    @staticmethod
+    def title_to_number(column_title: str) -> int:
+        result = 0
+        for i in column_title:
+            result = result * 26 + (ord(i) - ord("A") + 1)
+        return result
+
+    @staticmethod
+    def to_lower_case(s: str) -> str:
+        return s.lower()
+
+    @staticmethod
+    def rotate_string(s: str, goal: str) -> bool:
+        if len(s) != len(goal):
+            return False
+        return goal in (s + s)
+
+    @staticmethod
+    def majority_element(nums: list[int]) -> int:
+        nums.sort()
+        return nums[len(nums) // 2]
+
+    @staticmethod
+    def length_of_last_word(s: str) -> int:
+        s = s.split()
+        return len(s[len(s) - 1])
