@@ -1,4 +1,10 @@
 class Solution:
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+
     @staticmethod
     def is_power_of_two(n: int) -> bool:
         if n < 1:
@@ -163,12 +169,12 @@ class Solution:
                 return i
 
     @staticmethod
-    def is_power_of_three(self, n: int) -> bool:
+    def is_power_of_three(n: int) -> bool:
         if n < 1:
             return False
         elif n == 1:
             return True
-        return self.isPowerOfThree(n / 3)
+        return Solution.is_power_of_three(n / 3)
 
     @staticmethod
     def convert_temperature(celsius: float) -> list[float]:
@@ -200,3 +206,53 @@ class Solution:
     def length_of_last_word(s: str) -> int:
         s = s.split()
         return len(s[len(s) - 1])
+
+    @staticmethod
+    def inorder_traversal(root: TreeNode) -> list[int]:
+        res = []
+
+        def helper(tree):
+            if tree:
+                helper(tree.left)
+                res.append(tree.val)
+                helper(tree.right)
+
+        helper(root)
+        return res
+
+    @staticmethod
+    def is_same_tree(p: TreeNode, q: TreeNode) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if p.val != q.val:
+            return False
+        return Solution.is_same_tree(p.left, q.left) and Solution.is_same_tree(
+            p.right, q.right
+        )
+
+    @staticmethod
+    def max_depth(root: TreeNode) -> int:
+        if not root:
+            return 0
+        left = Solution.max_depth(root.left)
+        right = Solution.max_depth(root.right)
+        return max(left, right) + 1
+
+    @staticmethod
+    def invert_tree(root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        root.left, root.right = Solution.invert_tree(root.right), Solution.invert_tree(
+            root.left
+        )
+        return root
+
+    @staticmethod
+    def detect_capital_use(word: str) -> bool:
+        return (
+            True
+            if word == word.upper() or word == word.title() or word == word.lower()
+            else False
+        )
