@@ -1,0 +1,77 @@
+{% extends "components/index.html" %}
+
+{% block main %}
+<div class="container col-xl-10 col-xxl-8 px-4 py-5 border-bottom">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Create a task right now!</h1>
+      <p class="col-lg-10 mt-5 fs-4">Adding a task is very easy. All you need to do is enter the data in the fields and click the button. All your tasks will be displayed at the bottom.</p>
+      <div class="d-flex gap-3 mt-5">
+        <h5 class="border-right">Total tasks <span class="badge bg-primary">{{ total }}</span></h5>
+        <h5 class="border-right">Сompleted tasks <span class="badge bg-success">{{ completed }}</span></h5>
+        <h5 class="border-right">Uncompleted tasks <span class="badge bg-danger">{{ uncompleted }}</span></h5>
+      </div>
+    </div>
+    <div class="col-md-10 mx-auto col-lg-5">
+      <form method="POST" action="/add_task" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="task" name="task" placeholder="Your Task">
+          <label for="task">Your Task</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="date" name="date" placeholder="Deadlines Task">
+          <label for="date">Task Deadlines</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Create Task</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center align-items-center mt-3">
+  <form method="POST" class="d-flex gap-3 mt-3">
+    <button type="submit" class="btn btn-outline-primary" name="task_filter" value="completed">See Completed Task</button>
+    <button type="submit" class="btn btn-outline-primary" name="task_filter" value="uncompleted">See Uncompleted Task</button>
+  </form>
+</div>
+<div class="d-flex flex-column flex-md-row p-4 gap-3 py-md-5 align-items-center justify-content-center">
+  <div class="list-group d-inline-flex gap-5">
+    {% if tasks %}
+      {% if task_filter == 'completed' %}
+      <div class="container d-flex justify-content-center align-items-center border-bottom">
+        <h2 class="p-3 text-success">List Completed Task</h2>
+      </div>
+      {% else %}
+      <div class="container d-flex justify-content-center align-items-center border-bottom">
+        <h2 class="p-3 text-danger">List Uncompleted Task</h2>
+      </div>
+      {% endif %}
+      {% for id, task, date, status in tasks %}
+      <a class="list-group-item list-group-item-action d-inline-flex gap-3 py-3 border-top" aria-current="true">
+        <div class="d-inline-flex gap-3 justify-content-between">
+          <div class="d-flex gap-1 flex-column">
+            <h6>ID: {{ id }}</h6>
+            <h6>Status: <span class="{% if status == 'completed' %} text-success {% else %} text-danger {% endif %}">{{ status | capitalize}}</span></h6>
+            <h5>{{ task }}</h5>
+            <p class="mt-1 mb-0 opacity-75">{{ date }}</p>
+            <div class="d-flex gap-3 mt-3 mb-0">
+              {% if status != 'completed' %}
+              <form method="POST" action="/complete_task/{{ id }}">
+                <button type="submit" class="btn btn-success">Complete</button>
+              </form>
+              {% endif %}
+              <form method="POST" action="/delete_task/{{ id }}">
+                  <button type="submit" class="btn btn-outline-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    {% else %}
+    <div class="container d-flex justify-content-center align-items-center border-bottom">
+      <h2 class="p-3">There are no tasks!</h2>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock main %}
