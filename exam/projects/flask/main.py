@@ -18,6 +18,7 @@ class Views:
         @staticmethod
         @app.route("/", methods=["GET", "POST"])
         def home():
+            task_filter = None
             if request.method == "POST":
                 task_filter = request.form.get("task_filter")
                 tasks = Database.select(
